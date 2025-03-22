@@ -14,11 +14,17 @@ It compares the performance of these algorithms based on cumulative rewards and 
 
 DS223_HW2/
 ├── Bandit.py             ✅ Main implementation
+|
 ├── plot1.png             ✅ Reward over time plot
+|
 ├── plot2.png             ✅ Cumulative reward plot
+|
 ├── README.md             ✅ Documented project overview
+|
 ├── requirements.txt      ✅ Dependencies
+|
 ├── rewards.csv           ✅ Output data
+|
 └── venv/                 ✅ Virtual environment 
 
 ---
