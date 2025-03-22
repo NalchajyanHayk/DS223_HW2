@@ -19,7 +19,7 @@ DS223_HW2/
 ├── README.md             ✅ Documented project overview
 ├── requirements.txt      ✅ Dependencies
 ├── rewards.csv           ✅ Output data
-└── venv/                 ✅ Virtual environment (don't push to GitHub)
+└── venv/                 ✅ Virtual environment 
 
 ---
 
@@ -48,18 +48,23 @@ DS223_HW2/
    ```bash
    python -m venv venv
    venv\\Scripts\\activate   # On Windows
+   ```
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate # On macOS, Linux (Terminal)
+   ```
 
 2. Install the dependencies:
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+
 
 3. Run the Project
 
-```bash
-python Bandit.py 
-```
+   ```bash
+   python Bandit.py 
 
 
 ---
