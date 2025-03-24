@@ -1,0 +1,11 @@
+Suggest better implementation plan:
+
+I guess UCB1 would be a better alternative because it offers a more principled way to balance 
+exploration and exploitation. Unlike Epsilon-Greedy, which explores randomly and relies on carefully 
+tuning the epsilon value, UCB1 uses confidence bounds to make smarter, data-driven exploration decisions. 
+This means it naturally shifts from exploring uncertain arms to exploiting the best ones as more 
+information is gathered. Compared to Thompson Sampling, UCB1 is deterministic and doesn’t require any prior 
+distributions or sampling from posteriors, which makes it simpler to implement and easier to interpret. 
+It also provides strong theoretical guarantees, like logarithmic regret over time, which makes it a reliable 
+choice in stationary environments. Overall, it seems like a cleaner and more efficient strategy, especially 
+when we want good performance without relying on randomness or tuning.
