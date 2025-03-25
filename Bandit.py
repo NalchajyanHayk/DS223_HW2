@@ -15,6 +15,7 @@ np.random.seed(42)
 
 
 class Bandit(ABC):
+    """ """
     ##==== DO NOT REMOVE ANYTHING FROM THIS CLASS ====##
 
     @abstractmethod
@@ -27,26 +28,48 @@ class Bandit(ABC):
 
     @abstractmethod
     def pull(self):
+        """ """
         pass
 
     @abstractmethod
     def update(self, chosen_arm, reward):
+        """
+
+        Args:
+          chosen_arm: 
+          reward: 
+
+        Returns:
+
+        """
         pass
 
     @abstractmethod
     def experiment(self):
+        """ """
         pass
 
     @abstractmethod
     def report(self):
+        """ """
         pass
 
 
 # #--------------------------------------#
 
 class Visualization():
+    """ """
 
     def plot1(self, rewards_eg, rewards_ts):
+        """
+
+        Args:
+          rewards_eg: 
+          rewards_ts: 
+
+        Returns:
+
+        """
         plt.figure()
         plt.plot(rewards_eg, label='Epsilon-Greedy')
         plt.plot(rewards_ts, label='Thompson Sampling')
@@ -59,6 +82,15 @@ class Visualization():
         # plt.show() # apply this on your pc, please, my python does not support this function.
 
     def plot2(self, cum_eg, cum_ts):
+        """
+
+        Args:
+          cum_eg: 
+          cum_ts: 
+
+        Returns:
+
+        """
         plt.figure()
         plt.plot(cum_eg, label='Epsilon-Greedy')
         plt.plot(cum_ts, label='Thompson Sampling')
@@ -74,6 +106,7 @@ class Visualization():
 # #--------------------------------------#
 
 class EpsilonGreedy(Bandit):
+    """ """
     def __init__(self, p):
         self.p = p
         self.n = len(p)
@@ -88,6 +121,7 @@ class EpsilonGreedy(Bandit):
         return f"EpsilonGreedy(p={self.p})"
 
     def pull(self):
+        """ """
         t = len(self.rewards) + 1
         epsilon = 1 / t
         if np.random.rand() < epsilon:
@@ -96,12 +130,22 @@ class EpsilonGreedy(Bandit):
             return np.argmax(self.values)
 
     def update(self, chosen_arm, reward):
+        """
+
+        Args:
+          chosen_arm: 
+          reward: 
+
+        Returns:
+
+        """
         self.counts[chosen_arm] += 1
         n = self.counts[chosen_arm]
         value = self.values[chosen_arm]
         self.values[chosen_arm] = (1 - 1/n) * value + (1/n) * reward
 
     def experiment(self):
+        """ """
         for t in range(self.trials):
             arm = self.pull()
             reward = np.random.normal(self.p[arm], 1)
@@ -111,6 +155,7 @@ class EpsilonGreedy(Bandit):
             self.data.append([arm, reward, 'EpsilonGreedy'])
 
     def report(self):
+        """ """
         df = pd.DataFrame(self.data, columns=['Bandit', 'Reward', 'Algorithm'])
         df.to_csv('rewards.csv', mode='a', header=False, index=False)
         avg_reward = np.mean(self.rewards)
@@ -122,6 +167,7 @@ class EpsilonGreedy(Bandit):
 # #--------------------------------------#
 
 class ThompsonSampling(Bandit):
+    """ """
     def __init__(self, p):
         self.p = p
         self.n = len(p)
@@ -136,14 +182,25 @@ class ThompsonSampling(Bandit):
         return f"ThompsonSampling(p={self.p})"
 
     def pull(self):
+        """ """
         sampled = np.random.normal(self.mu, 1/np.sqrt(self.lambda_))
         return np.argmax(sampled)
 
     def update(self, chosen_arm, reward):
+        """
+
+        Args:
+          chosen_arm: 
+          reward: 
+
+        Returns:
+
+        """
         self.lambda_[chosen_arm] += 1
         self.mu[chosen_arm] = (self.lambda_[chosen_arm] * self.mu[chosen_arm] + reward) / (self.lambda_[chosen_arm] + 1)
 
     def experiment(self):
+        """ """
         for t in range(self.trials):
             arm = self.pull()
             reward = np.random.normal(self.p[arm], 1)
@@ -153,6 +210,7 @@ class ThompsonSampling(Bandit):
             self.data.append([arm, reward, 'ThompsonSampling'])
 
     def report(self):
+        """ """
         df = pd.DataFrame(self.data, columns=['Bandit', 'Reward', 'Algorithm'])
         df.to_csv('rewards.csv', mode='a', header=False, index=False)
         avg_reward = np.mean(self.rewards)
@@ -162,6 +220,7 @@ class ThompsonSampling(Bandit):
 
 
 def comparison():
+    """ """
     # think of a way to compare the performances of the two algorithms VISUALLY and 
     Bandit_Reward = [1, 2, 3, 4]
     eg = EpsilonGreedy(Bandit_Reward)
